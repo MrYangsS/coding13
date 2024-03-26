@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// 扩展 theme 类型
+
 interface ButtonProps {
   text: string;
   onClick?: () => void;
@@ -10,7 +10,6 @@ interface ButtonProps {
   disabled?: boolean;
 }
 
-// 根据新增的 theme 调整样式
 const StyledButton = styled.button<{ disabled: boolean; theme?:  'nav' | 'img' }>`
   padding: 10px 20px;
   border: none;

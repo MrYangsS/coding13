@@ -41,6 +41,7 @@ const Card: React.FC<CardProps> = ({ title, content, imageUrl = cardImage }) => 
       <CardContent>
         <h3>{title}</h3>
         <p>{content}</p>
+        <p>{imageUrl}</p>
       </CardContent>
     </CardContainer>
   );

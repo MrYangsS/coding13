@@ -4,7 +4,7 @@ import Card from './Card';
 import '@testing-library/jest-dom';
 
 
-jest.mock('./1.jpg', () => 'test-file-stub');
+jest.mock('./h.jpg', () => 'test-file-stub');
 
 test('renders Card component', () => {
   const { getByTestId, getByText } = render(<Card title="Test" content="Content" />);
