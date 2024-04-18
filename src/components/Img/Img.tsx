@@ -8,18 +8,21 @@ interface ImgProps {
   width?: string;
   height?: string;
   disabled?: boolean;
+  backgroundColor?: string; 
 }
 
-const StyledImg = styled.img<{ disabled?: boolean }>`
+const StyledImg = styled.img<{ disabled?: boolean, backgroundColor?: string }>`
   opacity: ${(props) => (props.disabled ? '0.5' : '1')};
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
-  max-width: 50%; //
+  max-width: 50%;
   height: auto;
-  border: ${(props) => (props.disabled ? 'none' : '1px solid #ccc')}; 
-  border-radius: 4px; // 
+  border: ${(props) => (props.disabled ? 'none' : '1px solid #ccc')};
+  border-radius: 4px;
+  background-color: ${(props) => props.backgroundColor || 'transparent'}; 
 `;
 
-const Img: React.FC<ImgProps> = ({ src = imgSrc, alt, width, height, disabled = false }) => {
+
+const Img: React.FC<ImgProps> = ({ src = imgSrc, alt, width, height, disabled = false, backgroundColor }) => {
   return (
     <StyledImg
       src={src}
@@ -27,8 +30,10 @@ const Img: React.FC<ImgProps> = ({ src = imgSrc, alt, width, height, disabled = 
       width={width}
       height={height}
       disabled={disabled}
+      backgroundColor={backgroundColor} 
     />
   );
 };
 
 export default Img;
+

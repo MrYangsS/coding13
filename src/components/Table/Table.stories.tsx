@@ -3,10 +3,10 @@ import React from 'react';
 import { StoryFn, Meta } from "@storybook/react";
 import Table from './Table';
 import { TableProps } from "./Tabel.types";
-import TableRow from './TableRow';
-import TableCell from './TableCell';
-import TableHeader from './TableHeader';
-import TableFooter from './TableFooter';
+import TableRow from './TableRow/TableRow';
+import TableCell from './tableCell/TableCell';
+import TableHeader from './tableHeader/TableHeader';
+import TableFooter from './tableFooter/TableFooter';
 
 export default {
   title: 'Components/Table',

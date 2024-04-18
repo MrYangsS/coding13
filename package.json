@@ -3,11 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "main": "dist/your-library-name.cjs.js",
-"module": "dist/your-library-name.esm.js",
-
+  "module": "dist/your-library-name.esm.js",
   "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -16,13 +13,36 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "test:jest": "jest",
+    "test:storybook": "test-storybook",
+    "build-storybook": "storybook build",
+    "prettier-check": "prettier --check .",
+    "lint": "eslint .",
+    "test": "react-scripts test --watchAll=false",
+    "prepare": "husky install"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.(t|j)sx?$": "babel-jest"
+    },
+    "moduleNameMapper": {
+      ".(css|less|scss)$": "identity-obj-proxy"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.tsx": [
+      "eslint --cache --fix",
+      "prettier --write"
+    ]
   },
   "eslintConfig": {
     "extends": [
@@ -44,24 +64,40 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.24.0",
-    "@babel/preset-env": "^7.24.0",
+    "@babel/core": "^7.24.4",
+    "@babel/preset-env": "^7.24.4",
+    "@babel/preset-react": "^7.24.1",
+    "@babel/preset-typescript": "^7.24.1",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@storybook/addon-essentials": "^7.6.17",
     "@storybook/addon-interactions": "^7.6.17",
+    "@storybook/addon-jest": "^8.0.8",
     "@storybook/addon-links": "^7.6.17",
     "@storybook/addon-onboarding": "^1.0.11",
     "@storybook/blocks": "^7.6.17",
+    "@storybook/icons": "^1.2.9",
     "@storybook/preset-create-react-app": "^7.6.17",
     "@storybook/react": "^7.6.17",
     "@storybook/react-webpack5": "^7.6.17",
     "@storybook/test": "^7.6.17",
+    "@storybook/testing-library": "^0.2.2",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^14.3.1",
+    "@types/jest": "^29.5.12",
+    "babel-jest": "^29.7.0",
+    "eslint": "^8.57.0",
     "eslint-plugin-storybook": "^0.8.0",
+    "husky": "^8.0.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.7.0",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5",
     "prop-types": "^15.8.1",
     "rollup": "^2.79.1",
     "storybook": "^7.6.17",
+    "ts-node": "^10.9.2",
     "webpack": "^5.90.3"
   }
 }

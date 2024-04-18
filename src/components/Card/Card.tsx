@@ -1,48 +1,63 @@
-import React from 'react';
+// Card.tsx
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-//@ts-ignore
-import cardImage from './h.jpg'; 
 
+const CardContainer = styled.div`
+  position: relative;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 20px;
+  margin: 10px;
+  width: 300px;
+`;
+
+const Image = styled.img`
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+`;
+
+const CardTitle = styled.h2`
+  margin-top: 0;
+`;
+
+const CardContent = styled.p``;
 
 interface CardProps {
   title: string;
   content: string;
-  imageUrl?: string;
+  images: string[];  // Array of image URLs
+  disabled?: boolean;
 }
 
-const CardContainer = styled.div`
-  background-color: #fff;
-  padding: 16px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  width: 20%;
-`;
+const Card: React.FC<CardProps> = ({ title, content, images, disabled }) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const intervalRef = useRef<NodeJS.Timeout>();
 
+  const handleMouseEnter = () => {
+    clearInterval(intervalRef.current);
+  };
 
-const Image = styled.img`
-  width: 400px;
-  height: 250px;
-  object-fit: fill; // 
-  border-radius: 8px 8px 0 0;
-  display: block;
-  margin: 0 auto;
-`;
+  const handleMouseLeave = () => {
+    startImageRotation();
+  };
 
-const CardContent = styled.div`
-  padding: 16px;
-`;
+  const startImageRotation = () => {
+    intervalRef.current = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 1000);
+  };
 
-const Card: React.FC<CardProps> = ({ title, content, imageUrl = cardImage }) => {
+  useEffect(() => {
+    startImageRotation();
+    return () => clearInterval(intervalRef.current);
+  }, []);
+
   return (
-    <CardContainer data-testid="card">
-      <Image src={imageUrl} alt="Card Image" />
-      <CardContent>
-        <h3>{title}</h3>
-        <p>{content}</p>
-        <p>{imageUrl}</p>
-      </CardContent>
+    <CardContainer onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <Image src={images[currentImageIndex]} alt="Card Image" />
+      <CardTitle>{title}</CardTitle>
+      <CardContent>{content}</CardContent>
     </CardContainer>
   );
 };

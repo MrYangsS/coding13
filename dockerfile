@@ -1,14 +1,16 @@
-# 使用官方 Node.js 作为父镜像
-FROM node:latest as build
 
-# 设置工作目录
-WORKDIR /usr/src/app
+FROM node:21
 
-# 复制 package.json 和 package-lock.json 文件
+WORKDIR /app
+
 COPY package*.json ./
 
-# 安装项目依赖
-RUN npm install
+RUN npm ci
+
+RUN npx playwright install --with-deps chromum
+
+
+CMD ["npm","run","ci:test"]
 
 # 复制项目文件
 COPY . .
@@ -31,5 +33,3 @@ COPY --from=build /usr/src/app/storybook-static /usr/share/nginx/html/storybook
 # 暴露 8083 端口
 EXPOSE 8083
 
-# 使用自定义 Nginx 配置（如果需要）
-# COPY nginx.conf /etc/nginx/conf.d/default.conf
